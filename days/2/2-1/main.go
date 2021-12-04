@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/valentin-lethiot/advent_of_code2021/utils"
+	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -33,7 +34,7 @@ func InputStringArrayToInputObjectArray(inputs[]string) []*Input {
 }
 
 func main() {
-	inputsString := utils.GetInputsToString("../inputs.txt")
+	inputsString := GetInputsToString("../inputs.txt")
 	inputs := InputStringArrayToInputObjectArray(inputsString)
 
 	distance := 0
@@ -55,6 +56,30 @@ func main() {
 	fmt.Println("DISTANCE : ", distance)
 	fmt.Println("DEPTH : ", depth)
 	fmt.Println("MULTIPLIED : ", distance * depth)
+}
 
 
+func GetInputsToString(path string) []string {
+	inputs := make([]string, 0)
+
+	content, _ := os.Open(path)
+	scanner := bufio.NewScanner(content)
+
+	for scanner.Scan() {
+		inputs = append(inputs, scanner.Text())
+	}
+
+	return inputs
+}
+
+func GetInputsToInt(path string) []int {
+	inputsString := GetInputsToString(path)
+
+	inputs := make([]int, 0)
+	for _, s := range inputsString {
+		intFromString, _ := strconv.Atoi(s)
+		inputs = append(inputs, intFromString)
+	}
+
+	return inputs
 }
